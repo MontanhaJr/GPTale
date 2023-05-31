@@ -1,4 +1,4 @@
-package com.gptale.gptale
+package com.gptale.gptale.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.gptale.gptale.R
 import com.gptale.gptale.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class StartFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
