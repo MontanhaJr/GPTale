@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gptale.gptale.HistoryAdapter
+import com.gptale.gptale.HistoryMock
 import com.gptale.gptale.R
-import com.gptale.gptale.databinding.FragmentSecondBinding
+import com.gptale.gptale.databinding.FragmentHistoryBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class HistoryFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentHistoryBinding? = null
+    private var adapter= HistoryAdapter()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,9 +29,8 @@ class HistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +39,10 @@ class HistoryFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+
+        binding.reyclerviewHistory.layoutManager = LinearLayoutManager(context)
+        binding.reyclerviewHistory.adapter = adapter
+        adapter.setData(HistoryMock.historyListMock(context!!))
     }
 
     override fun onDestroyView() {

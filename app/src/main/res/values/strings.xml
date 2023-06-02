@@ -11,4 +11,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_hint">Ex: O Marinheiro que Tinha Medo do Mar</string>
     <string name="gender_hint">Ex: Aventura</string>
+    <string name="paragraph_sample">Era uma vez, em um reino distante, um gigante chamado Grum, cuja tarefa era guardar um majestoso castelo no topo de uma colina. Grum era um gigante gentil, de coração bondoso, mas sua autoestima era extremamente baixa. Ele acreditava que não era bom o suficiente para cumprir sua função como guardião. Certo dia, enquanto Grum estava sentado na entrada do castelo, ele avistou uma ave rara voando acima de sua cabeça. Aquela ave parecia diferente de tudo o que ele já tinha visto antes. Grum ficou curioso e começou a refletir sobre o significado daquilo. Diante dessa situação, o que Grum decide fazer?</string>
+    <string name="option1_sample">Grum decide ignorar a ave e continuar pensando em sua baixa autoestima.</string>
+    <string name="option2_sample">Grum decide tentar chamar a atenção da ave para ter uma interação diferente.</string>
+    <string name="option3_sample">Grum decide seguir a ave para descobrir para onde ela está indo.</string>
+    <string name="option4_sample">Grum decide conversar com outros guardiões do castelo para buscar conselhos sobre a ave.</string>
 </resources>

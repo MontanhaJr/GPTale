@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.gptale.gptale.R
-import com.gptale.gptale.databinding.FragmentFirstBinding
+import com.gptale.gptale.databinding.FragmentStartBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class StartFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentStartBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,7 +25,7 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
 
     }
