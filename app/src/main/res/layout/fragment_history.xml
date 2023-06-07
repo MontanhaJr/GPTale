@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray">
 
         <TextView
             android:id="@+id/history_title"
@@ -20,6 +21,8 @@
             android:layout_marginRight="16dp"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:background="@color/white"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

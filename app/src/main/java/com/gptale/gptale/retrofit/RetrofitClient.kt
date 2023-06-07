@@ -8,7 +8,7 @@ class RetrofitClient {
 
     companion object {
         private lateinit var INSTANCE: Retrofit
-        private const val BASE_URL = "https://gptale.herokuapp.com/"
+        private const val BASE_URL = "https://gptale-java-production.up.railway.app/"
 
         fun getRetrofitInstance(): Retrofit {
             val http = OkHttpClient.Builder()
