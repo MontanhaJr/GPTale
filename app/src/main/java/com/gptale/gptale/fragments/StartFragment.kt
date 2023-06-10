@@ -47,7 +47,7 @@ class StartFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == R.id.button_start) {
-            viewModel.createNewHistory(
+            viewModel.createHistory(
                 binding.inputTitle.text.toString(),
                 binding.inputGender.text.toString()
             )

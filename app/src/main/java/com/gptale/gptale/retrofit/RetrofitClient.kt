@@ -3,6 +3,7 @@ package com.gptale.gptale.retrofit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
 
@@ -12,6 +13,7 @@ class RetrofitClient {
 
         fun getRetrofitInstance(): Retrofit {
             val http = OkHttpClient.Builder()
+            http.readTimeout(60, TimeUnit.SECONDS)
             if (!::INSTANCE.isInitialized) {
                 INSTANCE = Retrofit.Builder()
                     .baseUrl(BASE_URL)
