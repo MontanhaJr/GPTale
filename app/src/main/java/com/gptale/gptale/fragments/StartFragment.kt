@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gptale.gptale.R
 import com.gptale.gptale.databinding.FragmentStartBinding
+import com.gptale.gptale.viewmodels.StartViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -16,6 +18,7 @@ import com.gptale.gptale.databinding.FragmentStartBinding
 class StartFragment : Fragment(), OnClickListener {
 
     private var _binding: FragmentStartBinding? = null
+    private lateinit var viewModel: StartViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,7 +28,7 @@ class StartFragment : Fragment(), OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
         _binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -44,13 +47,11 @@ class StartFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == R.id.button_start) {
-            handleLogin()
+            viewModel.createNewHistory(
+                binding.inputTitle.text.toString(),
+                binding.inputGender.text.toString()
+            )
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-    }
-
-    private fun handleLogin() {
-        val title = binding.inputTitle.text.toString()
-        val gender = binding.inputGender.text.toString()
     }
 }
