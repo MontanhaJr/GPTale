@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gptale.gptale.HistoryAdapter
-import com.gptale.gptale.HistoryMock
 import com.gptale.gptale.R
 import com.gptale.gptale.databinding.FragmentHistoryBinding
 
@@ -19,6 +19,8 @@ class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
     private var adapter= HistoryAdapter()
+
+    private val args by navArgs<HistoryFragmentArgs>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,9 +42,13 @@ class HistoryFragment : Fragment() {
             findNavController().navigate(R.id.action_HistoryFragment_to_StartFragment)
         }
 
+        val history = args.startedHistory
+        binding.historyTitle.text = history.title
+        binding.historyGender.text = history.gender
+
         binding.reyclerviewHistory.layoutManager = LinearLayoutManager(context)
         binding.reyclerviewHistory.adapter = adapter
-        adapter.setData(HistoryMock.historyListMock(context!!))
+        adapter.setData(listOf(history))
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,7 @@
 package com.gptale.gptale.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class HistoryModel constructor(
     @SerializedName("id")
@@ -15,4 +16,4 @@ data class HistoryModel constructor(
     var options: List<String>,
     @SerializedName("fullHistory")
     var fullHistory: String?
-)
+): Serializable

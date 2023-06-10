@@ -14,18 +14,21 @@ class StartViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = StartRepository(application.applicationContext)
 
-    private val _history = MutableLiveData<RequestValidation>()
-    val history: LiveData<RequestValidation> = _history
+    private val _historyRequest = MutableLiveData<RequestValidation>()
+    val historyRequest: LiveData<RequestValidation> = _historyRequest
+
+    var history: HistoryModel? = null
 
     fun createHistory(title: String, gender: String) {
         repository.createNewHistory(StartModel(title, gender), object : APIListener<HistoryModel> {
 
             override fun onSuccess(result: HistoryModel) {
-                _history.value = RequestValidation()
+                history = result
+                _historyRequest.value = RequestValidation()
             }
 
             override fun onFailure(message: String) {
-                _history.value = RequestValidation(message)
+                _historyRequest.value = RequestValidation(message)
             }
         })
     }

@@ -19,4 +19,6 @@
 
     <string name="start_history_error">Falha ao Criar História</string>
     <string name="unexpected_error">Ocorreu um Erro Inesperado</string>
+    <string name="history_title_sample">O Marinheiro que Tinha Medo do Mar</string>
+    <string name="history_gender_sample">Aventura</string>
 </resources>

@@ -44,26 +44,35 @@ class StartFragment : Fragment(), OnClickListener {
     }
 
     private fun observe() {
-        viewModel.history.observe(this) {
+        viewModel.historyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
-                findNavController().navigate(R.id.action_StartFragment_to_HistoryFragment)
+                binding.formContainer.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+
+                val action = StartFragmentDirections.actionStartFragmentToHistoryFragment(viewModel.history!!)
+                action.arguments.putSerializable("startedHistory", viewModel.history)
+
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(context, it.message(), Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onClick(v: View) {
         if (v.id == R.id.button_start) {
+            binding.formContainer.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+
             viewModel.createHistory(
                 binding.inputTitle.text.toString(),
                 binding.inputGender.text.toString()
             )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
