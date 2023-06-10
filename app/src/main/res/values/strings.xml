@@ -16,4 +16,7 @@
     <string name="option2_sample">Grum decide tentar chamar a atenção da ave para ter uma interação diferente.</string>
     <string name="option3_sample">Grum decide seguir a ave para descobrir para onde ela está indo.</string>
     <string name="option4_sample">Grum decide conversar com outros guardiões do castelo para buscar conselhos sobre a ave.</string>
+
+    <string name="start_history_error">Falha ao Criar História</string>
+    <string name="unexpected_error">Ocorreu um Erro Inesperado</string>
 </resources>

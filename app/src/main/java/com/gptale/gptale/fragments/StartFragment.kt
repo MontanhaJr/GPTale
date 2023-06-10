@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gptale.gptale.R
@@ -38,6 +39,18 @@ class StartFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonStart.setOnClickListener(this)
+
+        observe()
+    }
+
+    private fun observe() {
+        viewModel.history.observe(this) {
+            if (it.status()) {
+                findNavController().navigate(R.id.action_StartFragment_to_HistoryFragment)
+            } else {
+                Toast.makeText(context, it.message(), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -51,7 +64,6 @@ class StartFragment : Fragment(), OnClickListener {
                 binding.inputTitle.text.toString(),
                 binding.inputGender.text.toString()
             )
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 }

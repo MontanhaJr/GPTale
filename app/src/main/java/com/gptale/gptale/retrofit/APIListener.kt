@@ -1,6 +1,6 @@
 package com.gptale.gptale.retrofit
 
-interface APIListener {
-    fun onSuccess(model: Any)
-    fun onFailure(str: String)
+interface APIListener<T> {
+    fun onSuccess(result: T)
+    fun onFailure(message: String)
 }
