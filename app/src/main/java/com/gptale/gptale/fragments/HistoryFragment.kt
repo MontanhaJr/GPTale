@@ -48,9 +48,9 @@ class HistoryFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_HistoryFragment_to_StartFragment)
-        }
+        binding.createHistoryButton.setOnClickListener(this)
+        binding.continueButton.setOnClickListener(this)
+        binding.saveHistoryButton.setOnClickListener(this)
 
         paragraph.add(args.startedHistory)
 
@@ -60,10 +60,10 @@ class HistoryFragment : Fragment(), OnClickListener {
         binding.reyclerviewHistory.layoutManager = LinearLayoutManager(context)
         binding.reyclerviewHistory.adapter = adapter
         adapter.setData(paragraph)
-        binding.continueButton.setOnClickListener(this)
 
         if (args.startedHistory.options.isEmpty()) {
             binding.continueButton.visibility = View.GONE
+            binding.saveHistoryButton.visibility = View.VISIBLE
         }
 
         observe()
@@ -76,6 +76,10 @@ class HistoryFragment : Fragment(), OnClickListener {
                 binding.optionsProgressBar.visibility = View.GONE
                 if (viewModel.history!!.options.isNotEmpty()) {
                     binding.continueButton.visibility = View.VISIBLE
+                }
+                else {
+                    binding.continueButton.visibility = View.GONE
+                    binding.saveHistoryButton.visibility = View.VISIBLE
                 }
 
                 paragraph.last().options = emptyList()
@@ -106,6 +110,14 @@ class HistoryFragment : Fragment(), OnClickListener {
             } else {
                 Snackbar.make(v, "Selecione uma opção", Snackbar.LENGTH_LONG).show()
             }
+        }
+
+        if (v.id == R.id.create_history_button) {
+            findNavController().navigate(R.id.action_HistoryFragment_to_StartFragment)
+        }
+
+        if (v.id == R.id.save_history_button) {
+            findNavController().navigate(R.id.action_HistoryFragment_to_FullHistoryFragment)
         }
     }
 }

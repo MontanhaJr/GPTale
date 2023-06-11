@@ -32,6 +32,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
         fun bind(history: HistoryModel) {
             bind.paragraph.text = history.paragraph
             selectedOption = 0
+            bind.optionsRadioGroup.clearCheck()
             bind.optionsRadioGroup.setOnCheckedChangeListener(this)
 
             if (history.options.isNotEmpty()) {

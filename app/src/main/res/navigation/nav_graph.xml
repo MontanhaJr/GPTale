@@ -28,4 +28,14 @@
             android:name="startedHistory"
             app:argType="com.gptale.gptale.models.HistoryModel" />
     </fragment>
+
+    <fragment
+        android:id="@+id/FullHistoryFragment"
+        android:name="com.gptale.gptale.fragments.FullHistoryFragment"
+        android:label="História Completa"
+        tools:layout="@layout/fragment_full_history" />
+
+        <action
+            android:id="@+id/action_HistoryFragment_to_FullHistoryFragment"
+            app:destination="@id/FullHistoryFragment" />
 </navigation>
