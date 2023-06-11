@@ -6,5 +6,7 @@ data class StartModel constructor(
     @SerializedName("title")
     var title: String,
     @SerializedName("gender")
-    var gender: String
+    var gender: String,
+    @SerializedName("maxParagraph")
+    var maxParagraph: Int
 )

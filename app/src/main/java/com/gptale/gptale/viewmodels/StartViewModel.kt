@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gptale.gptale.constants.Constants.HISTORY.MAX_PARAGRAPH
 import com.gptale.gptale.models.HistoryModel
 import com.gptale.gptale.models.RequestValidation
 import com.gptale.gptale.models.StartModel
@@ -20,7 +21,7 @@ class StartViewModel(application: Application) : AndroidViewModel(application) {
     var history: HistoryModel? = null
 
     fun createHistory(title: String, gender: String) {
-        repository.createNewHistory(StartModel(title, gender), object : APIListener<HistoryModel> {
+        repository.createNewHistory(StartModel(title, gender, MAX_PARAGRAPH), object : APIListener<HistoryModel> {
 
             override fun onSuccess(result: HistoryModel) {
                 history = result

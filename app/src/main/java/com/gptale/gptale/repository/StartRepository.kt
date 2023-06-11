@@ -2,7 +2,7 @@ package com.gptale.gptale.repository
 
 import android.content.Context
 import com.gptale.gptale.R
-import com.gptale.gptale.constants.TaskConstants
+import com.gptale.gptale.constants.Constants
 import com.gptale.gptale.models.HistoryModel
 import com.gptale.gptale.models.StartModel
 import com.gptale.gptale.retrofit.APIListener
@@ -20,7 +20,7 @@ class StartRepository(val context: Context) {
         val call = retrofitClient.startHistory(startModel)
         call.enqueue(object : Callback<HistoryModel> {
             override fun onResponse(call: Call<HistoryModel>, response: Response<HistoryModel>) {
-                if (response.code() == TaskConstants.HTTP.CREATED) {
+                if (response.code() == Constants.HTTP.CREATED) {
                     response.body()?.let { listener.onSuccess(it) }
                 } else {
                     listener.onFailure(context.getString(R.string.start_history_error))
