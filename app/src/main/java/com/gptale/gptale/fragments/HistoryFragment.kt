@@ -117,7 +117,10 @@ class HistoryFragment : Fragment(), OnClickListener {
         }
 
         if (v.id == R.id.save_history_button) {
-            findNavController().navigate(R.id.action_HistoryFragment_to_FullHistoryFragment)
+            val action = HistoryFragmentDirections.actionHistoryFragmentToFullHistoryFragment(viewModel.history!!.id)
+            action.arguments.putSerializable("idHistory", viewModel.history!!.id)
+
+            findNavController().navigate(action)
         }
     }
 }

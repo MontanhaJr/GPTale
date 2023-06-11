@@ -54,6 +54,8 @@ class StartFragment : Fragment(), OnClickListener {
 
                 findNavController().navigate(action)
             } else {
+                binding.formContainer.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(context, it.message(), Toast.LENGTH_LONG).show()
             }
         }

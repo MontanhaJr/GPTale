@@ -12,6 +12,6 @@ class Constants private constructor(){
     }
 
     object HISTORY {
-        const val MAX_PARAGRAPH = 3
+        const val MAX_PARAGRAPH = 5
     }
 }
