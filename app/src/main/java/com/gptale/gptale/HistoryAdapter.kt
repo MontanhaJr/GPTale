@@ -3,6 +3,8 @@ package com.gptale.gptale
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.recyclerview.widget.RecyclerView
 import com.gptale.gptale.databinding.RowHistoryBinding
 import com.gptale.gptale.models.HistoryModel
@@ -10,6 +12,7 @@ import com.gptale.gptale.models.HistoryModel
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     private var historyList = emptyList<HistoryModel>()
+    private var selectedOption: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val item =
@@ -21,17 +24,35 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
         holder.bind(historyList[position])
     }
 
-    override fun getItemCount(): Int {
-        return historyList.size
-    }
+    override fun getItemCount(): Int = historyList.size
 
-    inner class HistoryViewHolder(private val bind: RowHistoryBinding) : RecyclerView.ViewHolder(bind.root) {
+    fun getSelectedOption(): Int = selectedOption
+
+    inner class HistoryViewHolder(private val bind: RowHistoryBinding) : RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
         fun bind(history: HistoryModel) {
             bind.paragraph.text = history.paragraph
-            bind.option1.text = history.options[0]
-            bind.option2.text = history.options[1]
-            bind.option3.text = history.options[2]
-            bind.option4.text = history.options[3]
+            selectedOption = 0
+            bind.optionsRadioGroup.setOnCheckedChangeListener(this)
+
+            if (history.options.isNotEmpty()) {
+                bind.option1.text = history.options[0]
+                bind.option2.text = history.options[1]
+                bind.option3.text = history.options[2]
+                bind.option4.text = history.options[3]
+
+            } else {
+                bind.optionsRadioGroup.visibility = ViewGroup.GONE
+            }
+        }
+
+        override fun onCheckedChanged(radioGroup: RadioGroup?, checkedId: Int) {
+            selectedOption = when (checkedId) {
+                bind.option1.id -> 1
+                bind.option2.id -> 2
+                bind.option3.id -> 3
+                bind.option4.id -> 4
+                else -> 0
+            }
         }
     }
 
