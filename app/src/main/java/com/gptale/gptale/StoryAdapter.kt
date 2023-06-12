@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.recyclerview.widget.RecyclerView
-import com.gptale.gptale.databinding.RowHistoryBinding
+import com.gptale.gptale.databinding.RowStoryBinding
 import com.gptale.gptale.models.StoryModel
 
 class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
@@ -16,7 +16,7 @@ class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val item =
-            RowHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RowStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HistoryViewHolder(item)
     }
 
@@ -28,7 +28,7 @@ class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
 
     fun getSelectedOption(): Int = selectedOption
 
-    inner class HistoryViewHolder(private val bind: RowHistoryBinding) : RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
+    inner class HistoryViewHolder(private val bind: RowStoryBinding) : RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
         fun bind(history: StoryModel) {
             bind.paragraph.text = history.paragraph
             selectedOption = 0

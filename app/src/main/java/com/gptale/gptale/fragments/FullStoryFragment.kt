@@ -37,8 +37,8 @@ class FullStoryFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.createHistoryButton.setOnClickListener(this)
-        binding.fullHistoryProgressBar.visibility = View.VISIBLE
+        binding.createStoryButton.setOnClickListener(this)
+        binding.fullStoryProgressBar.visibility = View.VISIBLE
 
         val idStory = args.idStory
 
@@ -51,12 +51,12 @@ class FullStoryFragment : Fragment(), OnClickListener {
     private fun observe() {
         viewModel.storyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
-                binding.historyTitle.text = viewModel.story?.title
-                binding.historyGender.text = viewModel.story?.gender
-                binding.fullHistory.text = viewModel.story!!.fullStory
-                binding.fullHistoryContainer.visibility = View.VISIBLE
-                binding.fullHistoryProgressBar.visibility = View.GONE
-                binding.copyHistoryButton.setOnClickListener(this)
+                binding.storyTitle.text = viewModel.story?.title
+                binding.storyGender.text = viewModel.story?.gender
+                binding.fullStory.text = viewModel.story!!.fullStory
+                binding.fullStoryContainer.visibility = View.VISIBLE
+                binding.fullStoryProgressBar.visibility = View.GONE
+                binding.copyStoryButton.setOnClickListener(this)
             }
         }
     }
@@ -67,10 +67,10 @@ class FullStoryFragment : Fragment(), OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if (v.id == binding.copyHistoryButton.id) {
+        if (v.id == binding.copyStoryButton.id) {
             viewModel.copyStory(requireContext())
         }
-        if (v.id == R.id.create_history_button) {
+        if (v.id == R.id.create_story_button) {
             findNavController().navigate(R.id.action_FullStoryFragment_to_StartFragment)
         }
     }

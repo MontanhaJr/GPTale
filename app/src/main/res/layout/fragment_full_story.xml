@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/full_history_progress_bar"
+            android:id="@+id/full_story_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -23,7 +23,7 @@
             tools:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/full_history_container"
+            android:id="@+id/full_story_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -34,7 +34,7 @@
             tools:visibility="visible">
 
             <TextView
-                android:id="@+id/history_title"
+                android:id="@+id/story_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -45,7 +45,7 @@
                 tools:text="@string/history_title_sample" />
 
             <TextView
-                android:id="@+id/history_gender"
+                android:id="@+id/story_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -56,13 +56,13 @@
                 tools:text="@string/history_gender_sample" />
 
             <TextView
-                android:id="@+id/full_history"
+                android:id="@+id/full_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/large_text" />
 
             <Button
-                android:id="@+id/copy_history_button"
+                android:id="@+id/copy_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -71,7 +71,7 @@
                 android:drawableEnd="@drawable/ic_content_copy_24"/>
 
             <TextView
-                android:id="@+id/create_history_button"
+                android:id="@+id/create_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"

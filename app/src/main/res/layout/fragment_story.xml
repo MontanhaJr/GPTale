@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/history_title"
+                android:id="@+id/story_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -31,7 +31,7 @@
                 tools:text="@string/history_title_sample" />
 
             <TextView
-                android:id="@+id/history_gender"
+                android:id="@+id/story_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -42,17 +42,17 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/history_title"
+                app:layout_constraintTop_toBottomOf="@id/story_title"
                 tools:text="@string/history_gender_sample" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/reyclerview_history"
+                android:id="@+id/reyclerview_story"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/history_gender"
-                tools:listitem="@layout/row_history" />
+                app:layout_constraintTop_toBottomOf="@+id/story_gender"
+                tools:listitem="@layout/row_story" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,7 +78,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/save_history_button"
+                android:id="@+id/save_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -88,7 +88,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/create_history_button"
+                android:id="@+id/create_story_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

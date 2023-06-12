@@ -48,22 +48,22 @@ class StoryFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(StoryViewModel::class.java)
 
-        binding.createHistoryButton.setOnClickListener(this)
+        binding.createStoryButton.setOnClickListener(this)
         binding.continueButton.setOnClickListener(this)
-        binding.saveHistoryButton.setOnClickListener(this)
+        binding.saveStoryButton.setOnClickListener(this)
 
         paragraph.add(args.startedStory)
 
-        binding.historyTitle.text = args.startedStory.title
-        binding.historyGender.text = args.startedStory.gender
+        binding.storyTitle.text = args.startedStory.title
+        binding.storyGender.text = args.startedStory.gender
 
-        binding.reyclerviewHistory.layoutManager = LinearLayoutManager(context)
-        binding.reyclerviewHistory.adapter = adapter
+        binding.reyclerviewStory.layoutManager = LinearLayoutManager(context)
+        binding.reyclerviewStory.adapter = adapter
         adapter.setData(paragraph)
 
         if (args.startedStory.options.isEmpty()) {
             binding.continueButton.visibility = View.GONE
-            binding.saveHistoryButton.visibility = View.VISIBLE
+            binding.saveStoryButton.visibility = View.VISIBLE
         }
 
         observe()
@@ -79,7 +79,7 @@ class StoryFragment : Fragment(), OnClickListener {
                 }
                 else {
                     binding.continueButton.visibility = View.GONE
-                    binding.saveHistoryButton.visibility = View.VISIBLE
+                    binding.saveStoryButton.visibility = View.VISIBLE
                 }
 
                 paragraph.last().options = emptyList()
@@ -112,11 +112,11 @@ class StoryFragment : Fragment(), OnClickListener {
             }
         }
 
-        if (v.id == R.id.create_history_button) {
+        if (v.id == R.id.create_story_button) {
             findNavController().navigate(R.id.action_StoryFragment_to_StartFragment)
         }
 
-        if (v.id == R.id.save_history_button) {
+        if (v.id == R.id.save_story_button) {
             val action = StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.story!!.id)
             action.arguments.putSerializable("idStory", viewModel.story!!.id)
 
