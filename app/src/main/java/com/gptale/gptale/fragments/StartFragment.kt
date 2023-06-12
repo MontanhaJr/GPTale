@@ -49,7 +49,7 @@ class StartFragment : Fragment(), OnClickListener {
                 binding.formContainer.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
 
-                val action = StartFragmentDirections.actionStartFragmentToHistoryFragment(viewModel.history!!)
+                val action = StartFragmentDirections.actionStartFragmentToStoryFragment(viewModel.history!!)
                 action.arguments.putSerializable("startedHistory", viewModel.history)
 
                 findNavController().navigate(action)

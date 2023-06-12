@@ -7,11 +7,11 @@ import android.widget.RadioGroup
 import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.recyclerview.widget.RecyclerView
 import com.gptale.gptale.databinding.RowHistoryBinding
-import com.gptale.gptale.models.HistoryModel
+import com.gptale.gptale.models.StoryModel
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
 
-    private var historyList = emptyList<HistoryModel>()
+    private var historyList = emptyList<StoryModel>()
     private var selectedOption: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
@@ -29,7 +29,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
     fun getSelectedOption(): Int = selectedOption
 
     inner class HistoryViewHolder(private val bind: RowHistoryBinding) : RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
-        fun bind(history: HistoryModel) {
+        fun bind(history: StoryModel) {
             bind.paragraph.text = history.paragraph
             selectedOption = 0
             bind.optionsRadioGroup.clearCheck()
@@ -58,7 +58,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(history: List<HistoryModel>) {
+    fun setData(history: List<StoryModel>) {
         this.historyList = history
         notifyDataSetChanged()
     }

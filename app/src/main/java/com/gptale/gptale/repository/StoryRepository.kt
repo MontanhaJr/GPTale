@@ -3,23 +3,23 @@ package com.gptale.gptale.repository
 import android.content.Context
 import com.gptale.gptale.R
 import com.gptale.gptale.constants.Constants
-import com.gptale.gptale.models.HistoryModel
+import com.gptale.gptale.models.StoryModel
 import com.gptale.gptale.models.OptionModel
 import com.gptale.gptale.retrofit.APIListener
-import com.gptale.gptale.retrofit.HistoryService
+import com.gptale.gptale.retrofit.StoryService
 import com.gptale.gptale.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HistoryRepository(val context: Context) {
+class StoryRepository(val context: Context) {
 
-    private val retrofitClient = RetrofitClient().createService(HistoryService::class.java)
+    private val retrofitClient = RetrofitClient().createService(StoryService::class.java)
 
-    fun sendOptionSelected(optionModel: OptionModel, listener: APIListener<HistoryModel>) {
+    fun sendOptionSelected(optionModel: OptionModel, listener: APIListener<StoryModel>) {
         val call = retrofitClient.sendOption(optionModel)
-        call.enqueue(object : Callback<HistoryModel> {
-            override fun onResponse(call: Call<HistoryModel>, response: Response<HistoryModel>) {
+        call.enqueue(object : Callback<StoryModel> {
+            override fun onResponse(call: Call<StoryModel>, response: Response<StoryModel>) {
                 if (response.code() == Constants.HTTP.CREATED) {
                     response.body()?.let { listener.onSuccess(it) }
                 } else {
@@ -27,7 +27,7 @@ class HistoryRepository(val context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<HistoryModel>, t: Throwable) {
+            override fun onFailure(call: Call<StoryModel>, t: Throwable) {
                 listener.onFailure(context.getString(R.string.unexpected_error))
             }
         })

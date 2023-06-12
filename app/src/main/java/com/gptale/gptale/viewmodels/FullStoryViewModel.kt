@@ -9,24 +9,24 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.gptale.gptale.models.FullHistoryModel
+import com.gptale.gptale.models.FullStoryModel
 import com.gptale.gptale.models.RequestValidation
-import com.gptale.gptale.repository.FullHistoryRepository
+import com.gptale.gptale.repository.FullStoryRepository
 import com.gptale.gptale.retrofit.APIListener
 
-class FullHistoryViewModel(application: Application) : AndroidViewModel(application) {
+class FullStoryViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = FullHistoryRepository(application.applicationContext)
+    private val repository = FullStoryRepository(application.applicationContext)
 
     private val _historyRequest = MutableLiveData<RequestValidation>()
     val historyRequest: LiveData<RequestValidation> = _historyRequest
 
-    var history: FullHistoryModel? = null
+    var history: FullStoryModel? = null
 
     fun requestFullHistory(idHistory: Int) {
-        repository.requestFullHistory(idHistory, object : APIListener<FullHistoryModel> {
+        repository.requestFullHistory(idHistory, object : APIListener<FullStoryModel> {
 
-            override fun onSuccess(result: FullHistoryModel) {
+            override fun onSuccess(result: FullStoryModel) {
                 history = result
                 _historyRequest.value = RequestValidation()
             }

@@ -3,7 +3,7 @@ package com.gptale.gptale.models
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class HistoryModel constructor(
+data class StoryModel constructor(
     @SerializedName("id")
     var id: Int,
     @SerializedName("title")

@@ -12,34 +12,34 @@
         tools:layout="@layout/fragment_start">
 
         <action
-            android:id="@+id/action_StartFragment_to_HistoryFragment"
-            app:destination="@id/HistoryFragment" />
+            android:id="@+id/action_StartFragment_to_StoryFragment"
+            app:destination="@id/StoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/HistoryFragment"
-        android:name="com.gptale.gptale.fragments.HistoryFragment"
+        android:id="@+id/StoryFragment"
+        android:name="com.gptale.gptale.fragments.StoryFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_history">
+        tools:layout="@layout/fragment_story">
 
         <action
-            android:id="@+id/action_HistoryFragment_to_StartFragment"
+            android:id="@+id/action_StoryFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
         <action
-            android:id="@+id/action_HistoryFragment_to_FullHistoryFragment"
-            app:destination="@id/FullHistoryFragment" />
+            android:id="@+id/action_StoryFragment_to_FullStoryFragment"
+            app:destination="@id/FullStoryFragment" />
         <argument
             android:name="startedHistory"
-            app:argType="com.gptale.gptale.models.HistoryModel" />
+            app:argType="com.gptale.gptale.models.StoryModel" />
     </fragment>
 
     <fragment
-        android:id="@+id/FullHistoryFragment"
-        android:name="com.gptale.gptale.fragments.FullHistoryFragment"
+        android:id="@+id/FullStoryFragment"
+        android:name="com.gptale.gptale.fragments.FullStoryFragment"
         android:label="História Completa"
-        tools:layout="@layout/fragment_full_history">
+        tools:layout="@layout/fragment_full_story">
 
         <action
-            android:id="@+id/action_FullHistoryFragment_to_StartFragment"
+            android:id="@+id/action_FullStoryFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
         <argument
             android:name="idHistory"

@@ -2,7 +2,7 @@ package com.gptale.gptale.models
 
 import com.google.gson.annotations.SerializedName
 
-data class FullHistoryModel(
+data class FullStoryModel(
     @SerializedName("title")
     var title: String,
     @SerializedName("gender")

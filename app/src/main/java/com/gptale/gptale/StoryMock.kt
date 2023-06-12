@@ -1,13 +1,13 @@
 package com.gptale.gptale
 
 import android.content.Context
-import com.gptale.gptale.models.HistoryModel
+import com.gptale.gptale.models.StoryModel
 
-class HistoryMock() {
+class StoryMock() {
     companion object {
-        fun historyListMock(context: Context): List<HistoryModel> {
-            val historyList = mutableListOf<HistoryModel>()
-            val history = HistoryModel(
+        fun historyListMock(context: Context): List<StoryModel> {
+            val historyList = mutableListOf<StoryModel>()
+            val history = StoryModel(
                 id = 1,
                 title = "O marinheiro que tinha medo do Mar",
                 gender = "Aventura",

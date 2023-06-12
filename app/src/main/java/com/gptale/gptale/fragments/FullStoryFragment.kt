@@ -10,15 +10,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gptale.gptale.R
-import com.gptale.gptale.databinding.FragmentFullHistoryBinding
-import com.gptale.gptale.viewmodels.FullHistoryViewModel
+import com.gptale.gptale.databinding.FragmentFullStoryBinding
+import com.gptale.gptale.viewmodels.FullStoryViewModel
 
-class FullHistoryFragment : Fragment(), OnClickListener {
+class FullStoryFragment : Fragment(), OnClickListener {
 
-    private var _binding: FragmentFullHistoryBinding? = null
-    private lateinit var viewModel: FullHistoryViewModel
+    private var _binding: FragmentFullStoryBinding? = null
+    private lateinit var viewModel: FullStoryViewModel
 
-    private val args by navArgs<FullHistoryFragmentArgs>()
+    private val args by navArgs<FullStoryFragmentArgs>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -29,8 +29,8 @@ class FullHistoryFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(this).get(FullHistoryViewModel::class.java)
-        _binding = FragmentFullHistoryBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(FullStoryViewModel::class.java)
+        _binding = FragmentFullStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -71,7 +71,7 @@ class FullHistoryFragment : Fragment(), OnClickListener {
             viewModel.copyHistory(requireContext())
         }
         if (v.id == R.id.create_history_button) {
-            findNavController().navigate(R.id.action_FullHistoryFragment_to_StartFragment)
+            findNavController().navigate(R.id.action_FullStoryFragment_to_StartFragment)
         }
     }
 }

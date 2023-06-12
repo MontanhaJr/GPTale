@@ -13,23 +13,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.gptale.gptale.HistoryAdapter
+import com.gptale.gptale.StoryAdapter
 import com.gptale.gptale.R
-import com.gptale.gptale.databinding.FragmentHistoryBinding
-import com.gptale.gptale.models.HistoryModel
-import com.gptale.gptale.viewmodels.HistoryViewModel
+import com.gptale.gptale.databinding.FragmentStoryBinding
+import com.gptale.gptale.models.StoryModel
+import com.gptale.gptale.viewmodels.StoryViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class HistoryFragment : Fragment(), OnClickListener {
+class StoryFragment : Fragment(), OnClickListener {
 
-    private var _binding: FragmentHistoryBinding? = null
-    private var adapter = HistoryAdapter()
-    private lateinit var viewModel: HistoryViewModel
+    private var _binding: FragmentStoryBinding? = null
+    private var adapter = StoryAdapter()
+    private lateinit var viewModel: StoryViewModel
 
-    private val args by navArgs<HistoryFragmentArgs>()
-    private val paragraph: MutableList<HistoryModel> = mutableListOf()
+    private val args by navArgs<StoryFragmentArgs>()
+    private val paragraph: MutableList<StoryModel> = mutableListOf()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,13 +40,13 @@ class HistoryFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(StoryViewModel::class.java)
 
         binding.createHistoryButton.setOnClickListener(this)
         binding.continueButton.setOnClickListener(this)
@@ -113,11 +113,11 @@ class HistoryFragment : Fragment(), OnClickListener {
         }
 
         if (v.id == R.id.create_history_button) {
-            findNavController().navigate(R.id.action_HistoryFragment_to_StartFragment)
+            findNavController().navigate(R.id.action_StoryFragment_to_StartFragment)
         }
 
         if (v.id == R.id.save_history_button) {
-            val action = HistoryFragmentDirections.actionHistoryFragmentToFullHistoryFragment(viewModel.history!!.id)
+            val action = StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.history!!.id)
             action.arguments.putSerializable("idHistory", viewModel.history!!.id)
 
             findNavController().navigate(action)
