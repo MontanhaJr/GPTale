@@ -1,6 +1,11 @@
 package com.gptale.gptale.viewmodels
 
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,6 +35,14 @@ class FullHistoryViewModel(application: Application) : AndroidViewModel(applicat
                 _historyRequest.value = RequestValidation(message)
             }
         })
+    }
+
+    fun copyHistory(requireContext: Context) {
+        val clipboardManager = getSystemService(requireContext, ClipboardManager::class.java) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", history?.fullHistory.toString())
+        clipboardManager.setPrimaryClip(clipData)
+
+        Toast.makeText(requireContext, "Copiado para Área de Transferência", Toast.LENGTH_LONG).show()
     }
 
 
