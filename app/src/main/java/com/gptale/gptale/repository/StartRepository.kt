@@ -16,8 +16,8 @@ class StartRepository(val context: Context) {
 
     private val retrofitClient = RetrofitClient().createService(StoryService::class.java)
 
-    fun createNewHistory(startModel: StartModel, listener: APIListener<StoryModel>) {
-        val call = retrofitClient.startHistory(startModel)
+    fun createNewStory(startModel: StartModel, listener: APIListener<StoryModel>) {
+        val call = retrofitClient.startStory(startModel)
         call.enqueue(object : Callback<StoryModel> {
             override fun onResponse(call: Call<StoryModel>, response: Response<StoryModel>) {
                 if (response.code() == Constants.HTTP.CREATED) {

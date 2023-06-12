@@ -14,8 +14,8 @@ import retrofit2.Response
 class FullStoryRepository(val context: Context) {
     private val retrofitClient = RetrofitClient().createService(StoryService::class.java)
 
-    fun requestFullHistory(idHistory: Int, listener: APIListener<FullStoryModel>) {
-        val call = retrofitClient.saveHistory(idHistory)
+    fun requestFullStory(idStory: Int, listener: APIListener<FullStoryModel>) {
+        val call = retrofitClient.saveStory(idStory)
         call.enqueue(object : Callback<FullStoryModel> {
             override fun onResponse(call: Call<FullStoryModel>, response: Response<FullStoryModel>) {
                 if (response.code() == Constants.HTTP.SUCCESS) {

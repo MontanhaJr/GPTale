@@ -15,10 +15,10 @@ interface StoryService {
     @POST("sendOption")
     fun sendOption(@Body optionModel: OptionModel): Call<StoryModel>
 
-    @POST("startHistory")
-    fun startHistory(@Body startModel: StartModel): Call<StoryModel>
+    @POST("startStory")
+    fun startStory(@Body startModel: StartModel): Call<StoryModel>
 
-    @GET("saveHistory/{id}")
-    fun saveHistory(@Path("id") idHistory: Int): Call<FullStoryModel>
+    @GET("saveStory/{id}")
+    fun saveStory(@Path("id") idStory: Int): Call<FullStoryModel>
 
 }

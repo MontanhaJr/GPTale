@@ -40,20 +40,20 @@ class FullStoryFragment : Fragment(), OnClickListener {
         binding.createHistoryButton.setOnClickListener(this)
         binding.fullHistoryProgressBar.visibility = View.VISIBLE
 
-        val idHistory = args.idHistory
+        val idStory = args.idStory
 
-        viewModel.requestFullHistory(idHistory)
+        viewModel.requestFullStory(idStory)
 
         observe()
 
     }
 
     private fun observe() {
-        viewModel.historyRequest.observe(viewLifecycleOwner) {
+        viewModel.storyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
-                binding.historyTitle.text = viewModel.history?.title
-                binding.historyGender.text = viewModel.history?.gender
-                binding.fullHistory.text = viewModel.history!!.fullHistory
+                binding.historyTitle.text = viewModel.story?.title
+                binding.historyGender.text = viewModel.story?.gender
+                binding.fullHistory.text = viewModel.story!!.fullStory
                 binding.fullHistoryContainer.visibility = View.VISIBLE
                 binding.fullHistoryProgressBar.visibility = View.GONE
                 binding.copyHistoryButton.setOnClickListener(this)
@@ -68,7 +68,7 @@ class FullStoryFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == binding.copyHistoryButton.id) {
-            viewModel.copyHistory(requireContext())
+            viewModel.copyStory(requireContext())
         }
         if (v.id == R.id.create_history_button) {
             findNavController().navigate(R.id.action_FullStoryFragment_to_StartFragment)

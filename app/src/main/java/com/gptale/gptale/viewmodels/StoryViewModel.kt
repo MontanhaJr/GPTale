@@ -14,21 +14,21 @@ class StoryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = StoryRepository(application.applicationContext)
 
-    private val _historyRequest = MutableLiveData<RequestValidation>()
-    val historyRequest: LiveData<RequestValidation> = _historyRequest
+    private val _storyRequest = MutableLiveData<RequestValidation>()
+    val storyRequest: LiveData<RequestValidation> = _storyRequest
 
-    var history: StoryModel? = null
+    var story: StoryModel? = null
 
-    fun sendOption(idHistory: Int, optionSelected: Int) {
-        repository.sendOptionSelected(OptionModel(idHistory, optionSelected), object : APIListener<StoryModel> {
+    fun sendOption(idStory: Int, optionSelected: Int) {
+        repository.sendOptionSelected(OptionModel(idStory, optionSelected), object : APIListener<StoryModel> {
 
             override fun onSuccess(result: StoryModel) {
-                history = result
-                _historyRequest.value = RequestValidation()
+                story = result
+                _storyRequest.value = RequestValidation()
             }
 
             override fun onFailure(message: String) {
-                _historyRequest.value = RequestValidation(message)
+                _storyRequest.value = RequestValidation(message)
             }
         })
     }

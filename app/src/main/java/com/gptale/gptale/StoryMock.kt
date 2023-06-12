@@ -18,7 +18,7 @@ class StoryMock() {
                     context.resources.getString(R.string.option3_sample),
                     context.resources.getString(R.string.option4_sample)
                 ),
-                fullHistory = null
+                fullStory = null
             )
 
             historyList.add(history)

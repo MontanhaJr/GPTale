@@ -14,6 +14,6 @@ data class StoryModel constructor(
     var paragraph: String,
     @SerializedName("options")
     var options: List<String>,
-    @SerializedName("fullHistory")
-    var fullHistory: String?
+    @SerializedName("fullStory")
+    var fullStory: String?
 ): Serializable

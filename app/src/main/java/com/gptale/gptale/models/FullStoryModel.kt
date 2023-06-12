@@ -7,6 +7,6 @@ data class FullStoryModel(
     var title: String,
     @SerializedName("gender")
     var gender: String,
-    @SerializedName("fullHistory")
-    var fullHistory: String
+    @SerializedName("fullStory")
+    var fullStory: String
 )

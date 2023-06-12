@@ -44,13 +44,13 @@ class StartFragment : Fragment(), OnClickListener {
     }
 
     private fun observe() {
-        viewModel.historyRequest.observe(viewLifecycleOwner) {
+        viewModel.storyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
                 binding.formContainer.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
 
-                val action = StartFragmentDirections.actionStartFragmentToStoryFragment(viewModel.history!!)
-                action.arguments.putSerializable("startedHistory", viewModel.history)
+                val action = StartFragmentDirections.actionStartFragmentToStoryFragment(viewModel.story!!)
+                action.arguments.putSerializable("startedStory", viewModel.story)
 
                 findNavController().navigate(action)
             } else {
@@ -66,7 +66,7 @@ class StartFragment : Fragment(), OnClickListener {
             binding.formContainer.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
 
-            viewModel.createHistory(
+            viewModel.createStory(
                 binding.inputTitle.text.toString(),
                 binding.inputGender.text.toString()
             )

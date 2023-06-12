@@ -18,28 +18,28 @@ class FullStoryViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val repository = FullStoryRepository(application.applicationContext)
 
-    private val _historyRequest = MutableLiveData<RequestValidation>()
-    val historyRequest: LiveData<RequestValidation> = _historyRequest
+    private val _storyRequest = MutableLiveData<RequestValidation>()
+    val storyRequest: LiveData<RequestValidation> = _storyRequest
 
-    var history: FullStoryModel? = null
+    var story: FullStoryModel? = null
 
-    fun requestFullHistory(idHistory: Int) {
-        repository.requestFullHistory(idHistory, object : APIListener<FullStoryModel> {
+    fun requestFullStory(idStory: Int) {
+        repository.requestFullStory(idStory, object : APIListener<FullStoryModel> {
 
             override fun onSuccess(result: FullStoryModel) {
-                history = result
-                _historyRequest.value = RequestValidation()
+                story = result
+                _storyRequest.value = RequestValidation()
             }
 
             override fun onFailure(message: String) {
-                _historyRequest.value = RequestValidation(message)
+                _storyRequest.value = RequestValidation(message)
             }
         })
     }
 
-    fun copyHistory(requireContext: Context) {
+    fun copyStory(requireContext: Context) {
         val clipboardManager = getSystemService(requireContext, ClipboardManager::class.java) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", history?.fullHistory.toString())
+        val clipData = ClipData.newPlainText("text", story?.fullStory.toString())
         clipboardManager.setPrimaryClip(clipData)
 
         Toast.makeText(requireContext, "Copiado para Área de Transferência", Toast.LENGTH_LONG).show()

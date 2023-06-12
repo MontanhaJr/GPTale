@@ -52,16 +52,16 @@ class StoryFragment : Fragment(), OnClickListener {
         binding.continueButton.setOnClickListener(this)
         binding.saveHistoryButton.setOnClickListener(this)
 
-        paragraph.add(args.startedHistory)
+        paragraph.add(args.startedStory)
 
-        binding.historyTitle.text = args.startedHistory.title
-        binding.historyGender.text = args.startedHistory.gender
+        binding.historyTitle.text = args.startedStory.title
+        binding.historyGender.text = args.startedStory.gender
 
         binding.reyclerviewHistory.layoutManager = LinearLayoutManager(context)
         binding.reyclerviewHistory.adapter = adapter
         adapter.setData(paragraph)
 
-        if (args.startedHistory.options.isEmpty()) {
+        if (args.startedStory.options.isEmpty()) {
             binding.continueButton.visibility = View.GONE
             binding.saveHistoryButton.visibility = View.VISIBLE
         }
@@ -71,10 +71,10 @@ class StoryFragment : Fragment(), OnClickListener {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun observe() {
-        viewModel.historyRequest.observe(viewLifecycleOwner) {
+        viewModel.storyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
                 binding.optionsProgressBar.visibility = View.GONE
-                if (viewModel.history!!.options.isNotEmpty()) {
+                if (viewModel.story!!.options.isNotEmpty()) {
                     binding.continueButton.visibility = View.VISIBLE
                 }
                 else {
@@ -83,7 +83,7 @@ class StoryFragment : Fragment(), OnClickListener {
                 }
 
                 paragraph.last().options = emptyList()
-                paragraph.add(viewModel.history!!)
+                paragraph.add(viewModel.story!!)
 
 
                 adapter.notifyDataSetChanged()
@@ -102,7 +102,7 @@ class StoryFragment : Fragment(), OnClickListener {
         if (v.id == R.id.continue_button) {
             if (adapter.getSelectedOption() > 0) {
                 viewModel.sendOption(
-                    idHistory = args.startedHistory.id,
+                    idStory = args.startedStory.id,
                     optionSelected = adapter.getSelectedOption()
                 )
                 binding.continueButton.visibility = View.GONE
@@ -117,8 +117,8 @@ class StoryFragment : Fragment(), OnClickListener {
         }
 
         if (v.id == R.id.save_history_button) {
-            val action = StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.history!!.id)
-            action.arguments.putSerializable("idHistory", viewModel.history!!.id)
+            val action = StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.story!!.id)
+            action.arguments.putSerializable("idStory", viewModel.story!!.id)
 
             findNavController().navigate(action)
         }

@@ -28,7 +28,7 @@
             android:id="@+id/action_StoryFragment_to_FullStoryFragment"
             app:destination="@id/FullStoryFragment" />
         <argument
-            android:name="startedHistory"
+            android:name="startedStory"
             app:argType="com.gptale.gptale.models.StoryModel" />
     </fragment>
 
@@ -42,7 +42,7 @@
             android:id="@+id/action_FullStoryFragment_to_StartFragment"
             app:destination="@id/StartFragment" />
         <argument
-            android:name="idHistory"
+            android:name="idStory"
             app:argType="integer" />
     </fragment>
 </navigation>

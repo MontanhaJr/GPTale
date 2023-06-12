@@ -11,7 +11,7 @@ class Constants private constructor(){
         const val INTERNAL_SERVER_ERROR = 500
     }
 
-    object HISTORY {
+    object STORY {
         const val MAX_PARAGRAPH = 2
     }
 }
