@@ -2,8 +2,8 @@
     <string name="app_name">GPTale</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="start_fragment_label">Início</string>
+    <string name="story_fragment_label">História</string>
     <string name="start">Iniciar</string>
     <string name="save_history">Salvar História</string>
     <string name="create_new_history">Criar Nova</string>

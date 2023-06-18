@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/StartFragment"
         android:name="com.gptale.gptale.fragments.StartFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/start_fragment_label"
         tools:layout="@layout/fragment_start">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/StoryFragment"
         android:name="com.gptale.gptale.fragments.StoryFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/story_fragment_label"
         tools:layout="@layout/fragment_story">
 
         <action
