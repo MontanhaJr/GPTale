@@ -49,7 +49,8 @@ class StartFragment : Fragment(), OnClickListener {
                 binding.formContainer.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
 
-                val action = StartFragmentDirections.actionStartFragmentToStoryFragment(viewModel.story!!)
+                val action =
+                    StartFragmentDirections.actionStartFragmentToStoryFragment(viewModel.story!!)
                 action.arguments.putSerializable("startedStory", viewModel.story)
 
                 findNavController().navigate(action)
@@ -63,13 +64,19 @@ class StartFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == R.id.button_start) {
-            binding.formContainer.visibility = View.GONE
-            binding.progressBar.visibility = View.VISIBLE
+            if (binding.inputTitle.text.toString() != "" && binding.inputGender.text.toString() != "") {
+                binding.formContainer.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
 
-            viewModel.createStory(
-                binding.inputTitle.text.toString(),
-                binding.inputGender.text.toString()
-            )
+                viewModel.createStory(
+                    binding.inputTitle.text.toString(),
+                    binding.inputGender.text.toString()
+                )
+
+            }
+            else {
+                Toast.makeText(context, getString(R.string.empty_input_warning), Toast.LENGTH_LONG).show()
+            }
         }
     }
 

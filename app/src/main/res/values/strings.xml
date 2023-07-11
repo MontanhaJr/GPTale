@@ -37,4 +37,5 @@
         "seams, divides space, and indicates moving parts.\n\n"
 
     </string>
+    <string name="empty_input_warning">Preencha todos os campos</string>
 </resources>

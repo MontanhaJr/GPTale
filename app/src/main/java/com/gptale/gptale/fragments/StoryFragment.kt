@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,6 +28,7 @@ class StoryFragment : Fragment(), OnClickListener {
     private var _binding: FragmentStoryBinding? = null
     private var adapter = StoryAdapter()
     private lateinit var viewModel: StoryViewModel
+    private var storyFinished: Boolean = false
 
     private val args by navArgs<StoryFragmentArgs>()
     private val paragraph: MutableList<StoryModel> = mutableListOf()
@@ -67,6 +69,12 @@ class StoryFragment : Fragment(), OnClickListener {
         }
 
         observe()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (viewModel.story!!.options.isEmpty()){
+                findNavController().navigate(R.id.action_StoryFragment_to_StartFragment)
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -78,6 +86,7 @@ class StoryFragment : Fragment(), OnClickListener {
                     binding.continueButton.visibility = View.VISIBLE
                 }
                 else {
+                    storyFinished = true
                     binding.continueButton.visibility = View.GONE
                     binding.saveStoryButton.visibility = View.VISIBLE
                 }
