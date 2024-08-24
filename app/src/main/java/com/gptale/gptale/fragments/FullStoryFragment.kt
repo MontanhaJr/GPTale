@@ -6,17 +6,30 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gptale.gptale.R
+import com.gptale.gptale.database.DatabaseBuilder
 import com.gptale.gptale.databinding.FragmentFullStoryBinding
+import com.gptale.gptale.factory.FullStoryViewModelFactory
+import com.gptale.gptale.factory.StoryViewModelFactory
+import com.gptale.gptale.repository.FullStoryRepository
+import com.gptale.gptale.repository.StoryRepository
 import com.gptale.gptale.viewmodels.FullStoryViewModel
+import com.gptale.gptale.viewmodels.StoryViewModel
 
 class FullStoryFragment : Fragment(), OnClickListener {
 
     private var _binding: FragmentFullStoryBinding? = null
-    private lateinit var viewModel: FullStoryViewModel
+    private lateinit var repository: FullStoryRepository
+    private val database by lazy {
+        DatabaseBuilder.getInstance(this.requireContext())
+    }
+    private val viewModel: FullStoryViewModel by viewModels {
+        FullStoryViewModelFactory(repository)
+    }
 
     private val args by navArgs<FullStoryFragmentArgs>()
 
@@ -28,8 +41,7 @@ class FullStoryFragment : Fragment(), OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        viewModel = ViewModelProvider(this).get(FullStoryViewModel::class.java)
+        repository = FullStoryRepository(database.storyDao())
         _binding = FragmentFullStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,7 +54,7 @@ class FullStoryFragment : Fragment(), OnClickListener {
 
         val idStory = args.idStory
 
-        viewModel.requestFullStory(idStory)
+        viewModel.fetchStoryById(idStory)
 
         observe()
 

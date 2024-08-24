@@ -1,4 +1,4 @@
-package com.gptale.gptale.retrofit
+package com.gptale.gptale.api
 
 import com.gptale.gptale.models.FullStoryModel
 import com.gptale.gptale.models.StoryModel
@@ -19,6 +19,6 @@ interface StoryService {
     fun startStory(@Body startModel: StartModel): Call<StoryModel>
 
     @GET("saveStory/{id}")
-    fun saveStory(@Path("id") idStory: Int): Call<FullStoryModel>
+    fun saveStory(@Path("id") idStory: Long): Call<FullStoryModel>
 
 }

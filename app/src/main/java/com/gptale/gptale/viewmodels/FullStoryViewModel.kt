@@ -9,32 +9,35 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gptale.gptale.Util.StringUtils
 import com.gptale.gptale.models.FullStoryModel
 import com.gptale.gptale.models.RequestValidation
 import com.gptale.gptale.repository.FullStoryRepository
-import com.gptale.gptale.retrofit.APIListener
+import com.gptale.gptale.api.APIListener
+import com.gptale.gptale.api.ChatGPTMessage
+import com.gptale.gptale.api.ChatGPTRequest
+import com.gptale.gptale.api.ChatGPTResponse
+import com.gptale.gptale.models.Story
+import com.gptale.gptale.repository.StoryRepository
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class FullStoryViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = FullStoryRepository(application.applicationContext)
+class FullStoryViewModel(private val repository: FullStoryRepository) : ViewModel() {
 
     private val _storyRequest = MutableLiveData<RequestValidation>()
     val storyRequest: LiveData<RequestValidation> = _storyRequest
 
-    var story: FullStoryModel? = null
+    var story: Story? = null
 
-    fun requestFullStory(idStory: Int) {
-        repository.requestFullStory(idStory, object : APIListener<FullStoryModel> {
-
-            override fun onSuccess(result: FullStoryModel) {
-                story = result
-                _storyRequest.value = RequestValidation()
-            }
-
-            override fun onFailure(message: String) {
-                _storyRequest.value = RequestValidation(message)
-            }
-        })
+    fun fetchStoryById(idStory: Long) {
+        viewModelScope.launch {
+            story = repository.getStoryById(idStory)
+            _storyRequest.value = RequestValidation()
+        }
     }
 
     fun copyStory(requireContext: Context) {
@@ -44,6 +47,4 @@ class FullStoryViewModel(application: Application) : AndroidViewModel(applicatio
 
         Toast.makeText(requireContext, "Copiado para Área de Transferência", Toast.LENGTH_LONG).show()
     }
-
-
 }

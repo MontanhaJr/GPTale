@@ -29,7 +29,7 @@
             app:destination="@id/FullStoryFragment" />
         <argument
             android:name="startedStory"
-            app:argType="com.gptale.gptale.models.StoryModel" />
+            app:argType="com.gptale.gptale.models.Story" />
     </fragment>
 
     <fragment
@@ -43,6 +43,6 @@
             app:destination="@id/StartFragment" />
         <argument
             android:name="idStory"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

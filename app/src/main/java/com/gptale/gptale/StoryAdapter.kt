@@ -2,48 +2,52 @@ package com.gptale.gptale
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.recyclerview.widget.RecyclerView
 import com.gptale.gptale.databinding.RowStoryBinding
-import com.gptale.gptale.models.StoryModel
+import com.gptale.gptale.models.Story
 
-class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
+class StoryAdapter : RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
 
-    private var historyList = emptyList<StoryModel>()
+    private var storyList = mutableListOf<Story>()
     private var selectedOption: Int = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val item =
             RowStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HistoryViewHolder(item)
+        return StoryViewHolder(item)
     }
 
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.bind(historyList[position])
+    override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
+        holder.bind(storyList[position])
     }
 
-    override fun getItemCount(): Int = historyList.size
+    override fun getItemCount(): Int = storyList.size
 
     fun getSelectedOption(): Int = selectedOption
 
-    inner class HistoryViewHolder(private val bind: RowStoryBinding) : RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
-        fun bind(history: StoryModel) {
-            bind.paragraph.text = history.paragraph
+    inner class StoryViewHolder(private val bind: RowStoryBinding) :
+        RecyclerView.ViewHolder(bind.root), OnCheckedChangeListener {
+        fun bind(story: Story) {
+            bind.paragraph.text = story.paragraph
             selectedOption = 0
             bind.optionsRadioGroup.clearCheck()
-            bind.optionsRadioGroup.setOnCheckedChangeListener(this)
+            bind.optionsRadioGroup.setOnCheckedChangeListener(null)
 
-            if (history.options.isNotEmpty()) {
-                bind.option1.text = history.options[0]
-                bind.option2.text = history.options[1]
-                bind.option3.text = history.options[2]
-                bind.option4.text = history.options[3]
-
+            if (story.options.isNotEmpty()) {
+                bind.optionsRadioGroup.visibility = View.VISIBLE
+                bind.option1.text = story.options[0]
+                bind.option2.text = story.options[1]
+                bind.option3.text = story.options[2]
+                bind.option4.text = story.options[3]
             } else {
-                bind.optionsRadioGroup.visibility = ViewGroup.GONE
+                bind.optionsRadioGroup.visibility = View.GONE
             }
+
+            bind.optionsRadioGroup.setOnCheckedChangeListener(this)
         }
 
         override fun onCheckedChanged(radioGroup: RadioGroup?, checkedId: Int) {
@@ -58,9 +62,20 @@ class StoryAdapter : RecyclerView.Adapter<StoryAdapter.HistoryViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(history: List<StoryModel>) {
-        this.historyList = history
+    fun setData(stories: List<Story>) {
+        this.storyList.clear()
+        this.storyList.addAll(stories)
         notifyDataSetChanged()
     }
-}
 
+    fun addStory(story: Story) {
+        if (storyList.isNotEmpty()) {
+            storyList.last().options = emptyList()
+            notifyItemChanged(storyList.size - 1)
+        }
+
+        // Adicionar nova história
+        this.storyList.add(story)
+        notifyItemInserted(storyList.size - 1)
+    }
+}

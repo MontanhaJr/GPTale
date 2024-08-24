@@ -1,4 +1,4 @@
-package com.gptale.gptale.retrofit
+package com.gptale.gptale.api
 
 interface APIListener<T> {
     fun onSuccess(result: T)

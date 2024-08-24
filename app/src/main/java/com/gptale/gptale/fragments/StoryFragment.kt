@@ -9,15 +9,19 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.gptale.gptale.StoryAdapter
 import com.gptale.gptale.R
+import com.gptale.gptale.database.DatabaseBuilder.getInstance
 import com.gptale.gptale.databinding.FragmentStoryBinding
-import com.gptale.gptale.models.StoryModel
+import com.gptale.gptale.factory.StoryViewModelFactory
+import com.gptale.gptale.models.Story
+import com.gptale.gptale.repository.StoryRepository
 import com.gptale.gptale.viewmodels.StoryViewModel
 
 /**
@@ -25,13 +29,21 @@ import com.gptale.gptale.viewmodels.StoryViewModel
  */
 class StoryFragment : Fragment(), OnClickListener {
 
+    private lateinit var repository: StoryRepository
+    private val database by lazy {
+        getInstance(this.requireContext())
+    }
+
     private var _binding: FragmentStoryBinding? = null
     private var adapter = StoryAdapter()
-    private lateinit var viewModel: StoryViewModel
+    private val viewModel: StoryViewModel by viewModels {
+        StoryViewModelFactory(repository)
+    }
     private var storyFinished: Boolean = false
 
     private val args by navArgs<StoryFragmentArgs>()
-    private val paragraph: MutableList<StoryModel> = mutableListOf()
+    private lateinit var argumentos: Story
+    private val paragraph: MutableList<Story> = mutableListOf()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,30 +52,34 @@ class StoryFragment : Fragment(), OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
+        repository = StoryRepository(database.storyDao())
+
+        argumentos = args.startedStory
+        viewModel.processStory(argumentos)
+        viewModel.story = argumentos
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(StoryViewModel::class.java)
 
         binding.createStoryButton.setOnClickListener(this)
         binding.continueButton.setOnClickListener(this)
         binding.saveStoryButton.setOnClickListener(this)
 
-        paragraph.add(args.startedStory)
+        paragraph.add(argumentos)
 
-        binding.storyTitle.text = args.startedStory.title
-        binding.storyGender.text = args.startedStory.gender
+        binding.storyTitle.text = argumentos.title
+        binding.storyGender.text = argumentos.gender
 
         binding.reyclerviewStory.layoutManager = LinearLayoutManager(context)
         binding.reyclerviewStory.adapter = adapter
         adapter.setData(paragraph)
 
-        if (args.startedStory.options.isEmpty()) {
+        if (argumentos.options.isEmpty()) {
             binding.continueButton.visibility = View.GONE
             binding.saveStoryButton.visibility = View.VISIBLE
         }
@@ -71,7 +87,7 @@ class StoryFragment : Fragment(), OnClickListener {
         observe()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (viewModel.story!!.options.isEmpty()){
+            if (viewModel.story.options.isEmpty()) {
                 findNavController().navigate(R.id.action_StoryFragment_to_StartFragment)
             }
         }
@@ -82,20 +98,20 @@ class StoryFragment : Fragment(), OnClickListener {
         viewModel.storyRequest.observe(viewLifecycleOwner) {
             if (it.status()) {
                 binding.optionsProgressBar.visibility = View.GONE
-                if (viewModel.story!!.options.isNotEmpty()) {
+                if (viewModel.story.options.isNotEmpty()) {
                     binding.continueButton.visibility = View.VISIBLE
-                }
-                else {
+                } else {
                     storyFinished = true
                     binding.continueButton.visibility = View.GONE
                     binding.saveStoryButton.visibility = View.VISIBLE
                 }
 
-                paragraph.last().options = emptyList()
-                paragraph.add(viewModel.story!!)
+                viewModel.story.let { story ->
+                    adapter.addStory(story)
+                    binding.reyclerviewStory.scrollToPosition(adapter.itemCount - 1)
+                }
 
 
-                adapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(context, it.message(), Toast.LENGTH_LONG).show()
             }
@@ -110,10 +126,7 @@ class StoryFragment : Fragment(), OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.continue_button) {
             if (adapter.getSelectedOption() > 0) {
-                viewModel.sendOption(
-                    idStory = args.startedStory.id,
-                    optionSelected = adapter.getSelectedOption()
-                )
+                viewModel.sendOption(adapter.getSelectedOption())
                 binding.continueButton.visibility = View.GONE
                 binding.optionsProgressBar.visibility = View.VISIBLE
             } else {
@@ -126,8 +139,9 @@ class StoryFragment : Fragment(), OnClickListener {
         }
 
         if (v.id == R.id.save_story_button) {
-            val action = StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.story!!.id)
-            action.arguments.putSerializable("idStory", viewModel.story!!.id)
+            val action =
+                StoryFragmentDirections.actionStoryFragmentToFullStoryFragment(viewModel.story.uid)
+            action.arguments.putSerializable("idStory", viewModel.story.uid)
 
             findNavController().navigate(action)
         }

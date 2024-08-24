@@ -43,7 +43,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:inputType="text"
-            android:hint="@string/title_hint" />
+            android:hint="@string/title_hint"
+            android:text="O Marinheiro que Tinha Medo do Mar"/>
 
         <EditText
             android:id="@+id/input_gender"
@@ -53,7 +54,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:inputType="text"
-            android:hint="@string/gender_hint" />
+            android:hint="@string/gender_hint"
+            android:text="Aventura"/>
 
         <Button
             android:id="@+id/button_start"
