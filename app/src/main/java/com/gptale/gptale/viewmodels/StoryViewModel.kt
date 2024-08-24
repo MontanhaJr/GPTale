@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gptale.gptale.BuildConfig
 import com.gptale.gptale.Util.StringUtils
 import com.gptale.gptale.Util.StringUtils.optionSelected
 import com.gptale.gptale.Util.StringUtils.parseResponse
@@ -88,7 +89,7 @@ class StoryViewModel(private val repository: StoryRepository) : ViewModel() {
             println(it)
         }
         println("Request Messages: Fim")
-        chatGPTService.getCompletion(request).enqueue(object : Callback<ChatGPTResponse> {
+        chatGPTService.getCompletion(request = request).enqueue(object : Callback<ChatGPTResponse> {
             override fun onResponse(
                 call: Call<ChatGPTResponse>,
                 response: Response<ChatGPTResponse>

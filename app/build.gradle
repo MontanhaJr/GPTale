@@ -5,6 +5,16 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { stream ->
+        localProperties.load(stream)
+    }
+}
+
+def chatGptApiToken = localProperties.getProperty("gpt-api-token")
+
 android {
     namespace 'com.gptale.gptale'
     compileSdk 34
@@ -17,6 +27,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "CHATGPT_API_TOKEN", "\"${chatGptApiToken}\""
     }
 
     buildTypes {

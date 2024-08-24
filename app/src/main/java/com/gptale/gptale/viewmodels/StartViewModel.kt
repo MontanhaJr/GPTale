@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gptale.gptale.BuildConfig
 import com.gptale.gptale.Util.StringUtils
 import com.gptale.gptale.Util.StringUtils.parseResponse
 import com.gptale.gptale.api.ApiClient
@@ -55,7 +56,7 @@ class StartViewModel(private val repository: StartRepository) : ViewModel() {
         )
         val request = ChatGPTRequest(messages = messages)
 
-        chatGPTService.getCompletion(request).enqueue(object :
+        chatGPTService.getCompletion(request = request).enqueue(object :
             Callback<ChatGPTResponse> {
             override fun onResponse(
                 call: Call<ChatGPTResponse>,
